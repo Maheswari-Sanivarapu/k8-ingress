@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app1
+  labels:
+    purpose: ingress
+    project: roboshop
+    app: app1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      purpose: ingress
+      project: roboshop
+      app: app1
+  template:
+    metadata: 
+      labels: 
+        purpose: ingress
+        project: roboshop
+        app: app1
+    spec:
+      containers:
+      - name: app1
+        image: maheswari450/app1:v1
+---
+apiVersion: v1 
+kind: Service
+metadata:
+  name: app1
+  labels:
+    purpose: ingress
+    project: roboshop
+    app: app1
+spec:
+  selector:
+    purpose: ingress
+    project: roboshop
+    app: app1
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+--- 
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app1
+  annotations:
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:557690617909:certificate/6570fbbc-82dc-4c2a-b1a6-744326d4c94e
+    alb.ingress.kubernetes.io/target-type: ip 
+    alb.ingress.kubernetes.io/group.name: maheswari
+spec: 
+  ingressClassName: alb
+  rules:
+  - host: "app1.pavithra.fun"
+    http:
+      paths:
+      - pathType: Prefix 
+        path: "/"
+        backend:
+          service:
+            name: app1 
+            port: 
+              number: 80 # app1 service port
