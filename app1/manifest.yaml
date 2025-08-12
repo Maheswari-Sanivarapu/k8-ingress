@@ -49,7 +49,7 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
     alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:557690617909:certificate/6570fbbc-82dc-4c2a-b1a6-744326d4c94e
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:557690617909:certificate/99b45043-053f-415d-b364-49ead3dd46fd
     alb.ingress.kubernetes.io/target-type: ip 
     alb.ingress.kubernetes.io/group.name: maheswari
 spec: 
